@@ -1,0 +1,69 @@
+from functools import wraps
+def salamla(name,message="Salam"):
+    print(f"{message}, {name}!")
+
+#2
+
+def cem(*eded):
+    print(sum(eded))
+
+def en_uzun_soz(cumle):
+    sozler = cumle.split()
+    if not sozler:
+        return ""
+    return max(sozler, key=len)
+
+players = [
+{"ad": "Ali", "bal": 120},
+{"ad": "Nigar", "bal": 340},
+{"ad": "Kamran", "bal": 90}]
+
+while players:
+    en_boyuk = players[0]
+    for p in players:
+        if p["bal"] > en_boyuk["bal"]:
+            en_boyuk = p
+    print(en_boyuk["ad"])
+    players.remove(en_boyuk)
+
+def shout(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+
+@shout
+def greet(name):
+    name = name.upper()
+    name = name + "!!!"
+    return f"salam, {name}" 
+
+def countdown(n):
+    while n > 0:
+        yield n
+        n -= 1
+    if n == 0:
+        yield "Start!"
+        
+for x in countdown(3):
+    print(x)
+
+print()
+
+print(greet("ali"))
+
+print()
+
+salamla("Ali")
+salamla("nigar", "Sabahin xeyir")
+
+print() 
+
+cem(1, 2, 3, 4, 5)
+cem(10, 20, 30)
+cem()
+
+print()
+
+cumle="Bu bir test cümləsidir."
+print(en_uzun_soz(cumle))
